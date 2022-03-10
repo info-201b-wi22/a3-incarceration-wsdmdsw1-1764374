@@ -55,19 +55,8 @@ Some ethical questions we need to consider when working with this data because w
 
 ### Trends Over Time Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+This chart shows the female jail population change from 1970-2018 based on the five counties with the largest number of incarcerations. Most notably, it shows a large decrease and then a spike in the Los Angeles County Line. Overall, all the lines trend upwards.
 
-The first chart that you will create and include will show the trend over time of your variable/topic. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Show more than one, but fewer than ~10 trends
-  - This may mean showing the same measure for different locations or different racial groups. Think carefully about a meaningful comparison of locations (e.g., the top 10 counties in a state, top 10 states, etc.)
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear legend title
-
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
-
-This chart shows the female jail population change from 1970-2018 based on the five counties with the largest number of incarcerations.
 ```{r, include = FALSE}
 chart_1 <- function(incarceration_data){
  largest_five <- incarceration_data %>%
@@ -98,15 +87,8 @@ chart_1(incarceration_data)
 
 ### Variable Comparison Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+This scatter plot chart shows the continuous relationship between the female jail population and the black jail population based on the area that they live in. This shows a trend towards more variation between black and female populations as the area is more urban compared to rural.
 
-The second chart that you will create and include will show how two different (continuous) variables are related to one another. Again, think carefully about what such a comparison means and what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- If you choose to add a color encoding (not required), you need a legend for your different color and a clear legend title
-
-This scatter plot chart shows the continuous relationship between the female jail population and the black jail population based on the area that they live in.
 ```{r, include = FALSE}
 
 Chart_2 <- function(incarceration_data){
