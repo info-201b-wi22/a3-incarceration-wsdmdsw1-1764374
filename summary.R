@@ -37,7 +37,7 @@ avg_female_2018 <- incarceration_data %>%
 change_10_years <- avg_female_2018 - avg_female_2008
 change_10_years
 
-#4In this section, I showed the variation in the female incarceration population based on race, and I 
+#4 In this section, I showed the variation in the female incarceration population based on race, and I 
 #chose to calculate African American and Latinx populations. What this means is that when the race is 
 #introduced to the female population, it shows the variation. 59.4% of the variation in our female jail 
 #pop variable can be explained by the black jail population and 54.8% of the variation in our female jail 
