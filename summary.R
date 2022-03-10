@@ -1,3 +1,7 @@
+library(dplyr)
+library(ggplot2)
+incarceration_data <- read.csv("https://raw.githubusercontent.com/vera-institute/incarceration-trends/master/incarceration_trends.csv")
+
 #1. In this section, I looked at the average number of female incarcerations per county in the united states. 
 #This gives a good basis as to what the normal distribution of incarcerations is for women county by county 
 #in America. This came out to an average of 35 Females incarcerated per county which is lower than I expected.
