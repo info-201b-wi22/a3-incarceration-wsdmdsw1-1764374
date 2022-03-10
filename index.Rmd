@@ -2,10 +2,19 @@
 title: "A3: Incarceration"
 output: html_document
 ---
+```{r, include = FALSE}
+knitr::opts_knit$set(root.dir = "/Users/sanderlush/Desktop/INFO-201-CODE/a3-incarceration-wsdmdsw1-1764374/")
+knitr::opts_chunk$set(root.dir = "/Users/sanderlush/Desktop/INFO-201-CODE/a3-incarceration-wsdmdsw1-1764374/")
+library(dplyr)
+library(ggplot2)
+incarceration_data <- read.csv("https://raw.githubusercontent.com/vera-institute/incarceration-trends/master/incarceration_trends.csv")
+```
 
 ### Introduction
 
 An introduction of the problem domain and a description of the variable(s) you are choosing to analyze (and why!)
+
+"I will be looking at the female and  columns in relation to race"
 
 ### Summary Information
 
@@ -14,18 +23,75 @@ Write a summary paragraph of findings that includes the 5 values calculated from
 These will likely be calculated using your DPLYR skills, answering questions such as: 
 
 - What is the average value of my variable across all the counties (in the current year)?
+
+```{r}
+incarceration_data %>% 
+  filter(year == max(year)) %>%
+  pull(female_jail_pop) %>%
+  mean(na.rm = TRUE)
+```
+
+
 - Where is my variable the highest / lowest?
+
+```{r}
+incarceration_data %>% 
+  filter(year == max(year)) %>%
+  filter(female_jail_pop == max(female_jail_pop, na.rm = TRUE)) %>%
+  select(state, county_name, female_jail_pop) 
+
+incarceration_data %>% 
+  filter(year == max(year)) %>%
+  filter(female_jail_pop == min(female_jail_pop, na.rm = TRUE)) %>%
+  select(state, county_name, female_jail_pop) 
+```
+
 - How much has my variable change over the last N years?
+
+```{r}
+avg_female_2008 <- incarceration_data %>% 
+  filter(year == 2008) %>%
+  pull(female_jail_pop) %>%
+  mean(na.rm = TRUE)
+avg_female_2018 <- incarceration_data %>% 
+  filter(year == 2018) %>%
+  pull(female_jail_pop) %>%
+  mean(na.rm = TRUE)
+change_10_years <- avg_female_2018 - avg_female_2008
+change_10_years
+```
+```{r}
+incarceration_data_2018 <- incarceration_data %>% 
+  filter(year == 2018)
+
+cor(incarceration_data_2018$female_jail_pop, incarceration_data_2018$black_jail_pop, use = "complete.obs")^2
+cor(incarceration_data_2018$female_jail_pop, incarceration_data_2018$latinx_jail_pop, use = "complete.obs")^2
+```
+59.4% of the variation in our female jail pop variable can be explained by the black jail population
+54.8% of the variation in our female jail pop variable can be explained by the latinx jail population
 
 Feel free to calculate and report values that you find relevant. Again, remember that the purpose is to think about how these measure of incarceration vary by race.
 
 ### The Dataset
 
 Who collected the data?  
+The Vera Institute of Justice
 How was the data collected or generated?  
+
+This work employed two Bureau of Justice Statistics (BJS) data collections: the Census of Jails (COJ), which covers all jails and is conducted every five to eight years since 1970, and the Annual Survey of Jails (ASJ), which covers about one-third of jails-and includes nearly all of the largest jails-that has been conducted in non-census years since 1982.
+
 Why was the data collected?  
+
+
+
 How many observations (rows) are in your data?  
+
+
+
 How many features (columns) are in the data?  
+
+
+
 What, if any, ethical questions or questions of power do you need to consider when working with this data?  
 What are possible limitations or problems with this data?   (at least 200 words)
 
@@ -45,9 +111,33 @@ The first chart that you will create and include will show the trend over time o
 When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
 
 Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart1_example.R")}
+```{r, include = FALSE}
+chart_1 <- function(incarceration_data){
+ largest_five <- incarceration_data %>%
+    filter(year == max(year)) %>%
+    arrange(female_jail_pop) %>%
+    select(fips, female_jail_pop) %>%
+    na.omit() %>%
+    pull(fips) %>%
+    tail(5)
+   incarceration_data %>%
+     filter(fips %in% largest_five) %>%
+     select(year, County = county_name, female_jail_pop) %>%
+     na.omit() %>%
+     ggplot(aes(year, female_jail_pop, color = County))+
+     geom_line()+
+     labs(x = "Year", y = "Female Jail Population", title = "Female Jail Population Over Time", subtitle = "Largest 5 Counties")
+    
+  }
 ```
+
+```{r, echo = FALSE, }
+chart_1(incarceration_data)
+
+
+
+```
+
 
 ### Variable Comparison Chart
 
@@ -58,6 +148,36 @@ The second chart that you will create and include will show how two different (c
 - You must have clear x and y axis labels
 - The chart needs a clear title 
 - If you choose to add a color encoding (not required), you need a legend for your different color and a clear legend title
+
+```{r, include = FALSE}
+
+Chart_2 <- function(incarceration_data){
+  largest_hundred <- incarceration_data %>%
+    filter(year == max(year)) %>%
+    arrange(female_jail_pop) %>%
+    select(fips, female_jail_pop) %>%
+    na.omit() %>%
+    pull(fips) %>%
+    tail(1000)
+  incarceration_data %>%
+   filter(fips %in% largest_hundred) %>%
+    filter(year == max(year)) %>%
+    select(black_jail_pop, Area = urbanicity, female_jail_pop) %>%
+    na.omit() %>%
+    ggplot(aes(black_jail_pop, female_jail_pop, color = Area))+
+    geom_point()+
+    scale_x_log10()+
+    scale_y_log10()+
+    labs(x = "Black Jail Population", y = "Female Jail Population", title = "Comparing Black and Female Jail Populations", subtitle = "Largest One Thousand Counties")
+  
+}
+```
+
+```{r, echo = FALSE, }
+Chart_2(incarceration_data)
+
+```
+
 
 ### Map
 
