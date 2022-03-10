@@ -14,7 +14,7 @@ incarceration_data <- read.csv("https://raw.githubusercontent.com/vera-institute
 
 An introduction of the problem domain and a description of the variable(s) you are choosing to analyze (and why!)
 
-"I will be looking at the female and  columns in relation to race"
+"Incarceration has been a hot topic in our country for many years. It is often focused on men and male people of color because they make up such a large portion. This made me think about females and their distribution, so I will be looking at the female incarcerations and their distribution in relation to african american incarcerations."
 
 ### Summary Information
 
@@ -23,6 +23,7 @@ Write a summary paragraph of findings that includes the 5 values calculated from
 These will likely be calculated using your DPLYR skills, answering questions such as: 
 
 - What is the average value of my variable across all the counties (in the current year)?
+In this section, I looked at the average number of female incarcerations per county in the united states. This gives a good basis as to what the normal distribution of incarcerations is for women county by county in America. This came out to an average of 35 Females incarcerated per county which is lower than I expected.
 
 ```{r}
 incarceration_data %>% 
@@ -32,7 +33,9 @@ incarceration_data %>%
 ```
 
 
-- Where is my variable the highest / lowest?
+- Where is my variable the highest / lowest?\
+
+In this section, I found what counties carry the lowest number of incarcerations and the highest number of incarcerations in the United States. The lowest counties totaled up to 336 counties that do not have any female incarcerations. On the opposite end, Los Angeles had the most incarcerations, totaling up to 2137 women. This shows the disparity between counties.
 
 ```{r}
 incarceration_data %>% 
@@ -47,6 +50,8 @@ incarceration_data %>%
 ```
 
 - How much has my variable change over the last N years?
+
+In this section, I found out how much the average number of females incarcerated by county has changed over the past ten years. This number came out to 1.72, which is just under 2. While this might seem low, it is actually a rather large number as in the previous variable I found the disparity between counties.
 
 ```{r}
 avg_female_2008 <- incarceration_data %>% 
@@ -67,34 +72,42 @@ incarceration_data_2018 <- incarceration_data %>%
 cor(incarceration_data_2018$female_jail_pop, incarceration_data_2018$black_jail_pop, use = "complete.obs")^2
 cor(incarceration_data_2018$female_jail_pop, incarceration_data_2018$latinx_jail_pop, use = "complete.obs")^2
 ```
-59.4% of the variation in our female jail pop variable can be explained by the black jail population
-54.8% of the variation in our female jail pop variable can be explained by the latinx jail population
+
+In this section, I showed the variation in the female incarceration population based on race, and I chose to calculate African American and Latinx populations. What this means is that when the race is introduced to the female population, it shows the variation. 59.4% of the variation in our female jail pop variable can be explained by the black jail population and 54.8% of the variation in our female jail pop variable can be explained by the latinx jail population.
 
 Feel free to calculate and report values that you find relevant. Again, remember that the purpose is to think about how these measure of incarceration vary by race.
 
 ### The Dataset
 
 Who collected the data?  
-The Vera Institute of Justice
+
+The Vera Institute of Justice.
+
 How was the data collected or generated?  
 
-This work employed two Bureau of Justice Statistics (BJS) data collections: the Census of Jails (COJ), which covers all jails and is conducted every five to eight years since 1970, and the Annual Survey of Jails (ASJ), which covers about one-third of jails-and includes nearly all of the largest jails-that has been conducted in non-census years since 1982.
+According to the Vera Institute, "This work employed two Bureau of Justice Statistics (BJS) data collections: the Census of Jails (COJ), which covers all jails and is conducted every five to eight years since 1970, and the Annual Survey of Jails (ASJ), which covers about one-third of jails-and includes nearly all of the largest jails-that has been conducted in non-census years since 1982."
 
 Why was the data collected?  
 
-
+This data is collected because the Vera Institute is trying to end the overcriminalization and mass incarceration of minority groups. By collecting this data, they have a record of the amount of people within minority groups that are incarcerated. 
 
 How many observations (rows) are in your data?  
 
+There are 153811 rows in the data.
+
+```{r}
+nrow(incarceration_data)
+```
 
 
 How many features (columns) are in the data?  
 
-
+There are 121 columns in the table.
 
 What, if any, ethical questions or questions of power do you need to consider when working with this data?  
 What are possible limitations or problems with this data?   (at least 200 words)
 
+Some ethical questions we need to consider when working with this data because while it is relevant, it is not well organized and could have some issues with that based on the many sources the Vera Institute used to collect it. Because there is so much disparity between rural and urban areas in terms of incarceration, there is a large gap for error and manipulation for the larger populated areas and this reflects the immense power that these areas hold in terms of incarceration. Also, a limitation or problem with this data is that incarcerations are changing daily so there could be days in which there is a low in incarcerations compared to days where they are particularly high. This is important because this also influences inconsistencies in the data and also allows incarcerators to possibly manipulate data without anyone noticing. Lastly, an ethical question to consider is what effect does race have on the data? Does the data consistently show the correct amount of incarcerations by race? How do they discern between mixed race people? This last question is important because it is very possible that the data could be manipulated so that mixed white peoples who show their other race physically are shown as white incarcerations rather than their other race.
 
 ### Trends Over Time Chart
 
@@ -110,7 +123,7 @@ The first chart that you will create and include will show the trend over time o
 
 When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
 
-Here's an example of how to run an R script inside an RMarkdown file:
+This chart shows the female jail population change from 1970-2018 based on the five counties with the largest number of incarcerations.
 ```{r, include = FALSE}
 chart_1 <- function(incarceration_data){
  largest_five <- incarceration_data %>%
@@ -149,6 +162,7 @@ The second chart that you will create and include will show how two different (c
 - The chart needs a clear title 
 - If you choose to add a color encoding (not required), you need a legend for your different color and a clear legend title
 
+This scatter plot chart shows the continuous relationship between the female jail population and the black jail population based on the area that they live in.
 ```{r, include = FALSE}
 
 Chart_2 <- function(incarceration_data){
