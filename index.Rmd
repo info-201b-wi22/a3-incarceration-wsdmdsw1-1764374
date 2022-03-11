@@ -89,7 +89,7 @@ chart_1(incarceration_data)
 
 This scatter plot chart shows the continuous relationship between the female jail population and the black jail population based on the area that they live in. This shows a trend towards more variation between black and female populations as the area is more urban compared to rural.
 
-```{r, include = FALSE}
+```{r, include = FALSE, warning = FALSE}
 
 Chart_2 <- function(incarceration_data){
   largest_hundred <- incarceration_data %>%
@@ -113,7 +113,7 @@ Chart_2 <- function(incarceration_data){
 }
 ```
 
-```{r, echo = FALSE, }
+```{r, echo = FALSE, warning = FALSE}
 Chart_2(incarceration_data)
 
 ```
@@ -121,16 +121,8 @@ Chart_2(incarceration_data)
 
 ### Map
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
-
-The last chart that you will create and include will show how a variable is distributed geographically. Again, think carefully about what such a comparison means and what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Your map needs a title
-- Your color scale needs a legend with a clear label
-- Use a map based coordinate system to set the aspect ratio of your map
-- Use a minimalist theme for the map 
-
-```{r, include = FALSE}
+This map shows the percentage that Black people make up in the jail population by state.This trend shows higher percentage of incarceration in southeast America.
+```{r, include = FALSE, warning = FALSE}
 
 Chart_3 <- function(incarceration_data){
  state_prop_black <- incarceration_data %>%
@@ -155,7 +147,7 @@ Chart_3 <- function(incarceration_data){
 
 ```
 
-```{r, echo = FALSE, }
+```{r, echo = FALSE, warning = FALSE, message = FALSE }
 
 Chart_3(incarceration_data)
 
